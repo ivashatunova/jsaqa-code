@@ -9,15 +9,14 @@ test("login success", async ({ page }) => {
   await page.fill('input[name="email"][placeholder="Email"]', user);
 
   // Добавляем пароль
-  await page.fill('input[name="password"]', password);
+  await page.fill('input[name="password"]', 'invalidPassword');
 
   // Click text=Войти
   await page.click('button[type="submit"]');
-  await expect(page).toHaveURL("https://netology.ru/profile");
 
-  // Проверяем, что мы авторизовались успешно
-  const successMessage = await page.waitForSelector(
-    "h2.src-components-pages-Profile-Programs--title--Kw5NH"
-  );
-  expect(await successMessage.textContent()).toContain("Моё обучение");
+  // Проверяем текст об ошибке в появившемся блоке
+  await page.waitForSelector('[data-testid="login-error-hint"]');
+  const errorMessage = await page.textContent('[data-testid="login-error-hint"]');
+  expect(errorMessage).toBe('Вы ввели неправильно логин или пароль');
 });
+  
