@@ -13,6 +13,7 @@ test("login success", async ({ page }) => {
 
   // Click text=Войти
   await page.click('button[type="submit"]');
+  await page.screenshot({ path: `screenshots/clicked-login-button.png` });
   await expect(page).toHaveURL("https://netology.ru/profile");
 
   // Проверяем, что мы авторизовались успешно

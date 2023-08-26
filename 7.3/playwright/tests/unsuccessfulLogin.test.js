@@ -18,5 +18,6 @@ test("login success", async ({ page }) => {
   await page.waitForSelector('[data-testid="login-error-hint"]');
   const errorMessage = await page.textContent('[data-testid="login-error-hint"]');
   expect(errorMessage).toBe('Вы ввели неправильно логин или пароль');
+  await page.screenshot({ path: `screenshots/error-message.png` });
 });
   
