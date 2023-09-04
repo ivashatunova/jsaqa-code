@@ -9,5 +9,5 @@ const puppeteer = require("puppeteer");
   });
 
   const page = await browser.newPage();
-  await page.goto("https://github.com/features/actions");
+  await page.goto("https://github.com/team");
 })();

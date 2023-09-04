@@ -1,9 +1,14 @@
+async function setupPage(browser, url) {
+  const page = await browser.newPage();
+  await page.goto(url);
+  return page;
+}
+
 describe("Github page tests", () => {
   let page;
 
   beforeEach(async () => {
-    page = await browser.newPage();
-    await page.goto("https://github.com/team");
+    page = await setupPage(browser, "https://github.com/team");
   });
 
   afterEach(() => {
@@ -15,7 +20,9 @@ describe("Github page tests", () => {
     await firstLink.click();
     await page.waitForSelector("h1");
     const title2 = await page.title();
-    expect(title2).toEqual("GitHub: Where the world builds software · GitHub");
+    expect(title2).toEqual(
+      "GitHub for teams · Build like the best teams on the planet · GitHub"
+    );
   }, 60000);
 
   test("The first link attribute", async () => {
@@ -24,7 +31,7 @@ describe("Github page tests", () => {
   }, 60000);
 
   test("The page contains Sign in button", async () => {
-    const btnSelector = ".btn-large-mktg.btn-mktg";
+    const btnSelector = ".btn-mktg.btn-large-mktg.btn-muted-mktg";
     await page.waitForSelector(btnSelector, {
       visible: true,
     });
@@ -37,8 +44,7 @@ describe("Features page tests", () => {
   let page;
 
   beforeEach(async () => {
-    page = await browser.newPage();
-    await page.goto("https://github.com/features/actions");
+    page = await setupPage(browser, "https://github.com/features/actions");
   });
 
   afterEach(() => {
